@@ -7,6 +7,7 @@ from IPython.display import Image, display
 from langgraph.graph import StateGraph, START, END
 from pprint import pprint
 import streamlit as st
+import os
 
 # Load CLIP model
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -86,7 +87,7 @@ from langchain_core.messages import SystemMessage, HumanMessage
 #     api_key=os.getenv("llm_api_key"), temperature=0.0
 # )
 llm = ChatOpenAI( # Renamed instance for clarity
-      api_key=st.secrets["llm_api_key"],
+      api_key=os.getenv("OPENAI_API_KEY"),
       model="gpt-4o-mini",  # You can use "gpt-4o", "gpt-5", etc.
       temperature=0.0)
 
@@ -173,7 +174,7 @@ def skin_disease(state: State):
 """Node for Elgibility check"""
 
 def com(state: State):
-    return {"Eligible": True}
+    return {"eligible": True}
 
 """RAG for any reducable skin diseases to recommend a product for it"""
 
@@ -237,7 +238,7 @@ import PIL.Image # Changed from 'from PIL import Image'
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import load_img
 
-def age(state:State):
+def age1(state:State):
   # Load the image as grayscale and resize
   model = load_model("aagp.keras")
   img = load_img(state.image, color_mode="grayscale", target_size=(128, 128))
@@ -261,7 +262,7 @@ builder.add_node("oily", oily)
 builder.add_node("sense", sense)
 builder.add_node("pig", pig)
 builder.add_node("wri", wri)
-builder.add_node("age", age)
+builder.add_node("agen", age1)
 builder.add_node("products", chat)
 builder.add_node("extract", extract)
 builder.add_node("examiner", examiner)
@@ -280,13 +281,13 @@ builder.add_edge("com", "oily")
 builder.add_edge("com", "sense")
 builder.add_edge("com", "pig")
 builder.add_edge("com", "wri")
-builder.add_edge("com", "age")
+builder.add_edge("com", "agen")
 builder.add_edge("skin disease reduce", "products")
 builder.add_edge("oily", "products")
 builder.add_edge("sense", "products")
 builder.add_edge("pig", "products")
 builder.add_edge("wri", "products")
-builder.add_edge("age", "products")
+builder.add_edge("agen", "products")
 builder.add_edge("products", "extract")
 builder.add_edge("extract", "ProImg")
 builder.add_edge("ProImg", END)

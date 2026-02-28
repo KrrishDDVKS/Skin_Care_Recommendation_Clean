@@ -96,7 +96,8 @@ with left_col:
 # ---------- Build ImageState (always as a temp path) ----------
 with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmp:
     temp_path = tmp.name
-    uploaded_img.save(temp_path)
+    if uploaded_img is not None:
+        uploaded_img.save(temp_path)
 
 img_state = ImageState(image=temp_path)
 
