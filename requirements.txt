@@ -1,5 +1,5 @@
 setuptools
-openai-clip
+clip
 torch
 torchvision
 pillow
