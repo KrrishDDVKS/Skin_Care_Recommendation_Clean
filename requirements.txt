@@ -7,13 +7,12 @@ pillow
 pinecone
 tqdm
 langgraph
-tensorflow.keras
+tensorflow.keras >= 2.8.4
 tavily
 langchain-openai
 langchain-core
 langchain
-tensorflow == 2.13.0
-python-dotenv
+tensorflow >= 2.8.4
 opencv-python-headless
 IPython
 joblib
