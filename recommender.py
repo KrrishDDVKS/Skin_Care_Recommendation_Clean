@@ -61,8 +61,6 @@ from typing import Optional,List
 from typing import Annotated
 import operator
 import os
-import dotenv
-dotenv.load_dotenv()
 class State(BaseModel):
   image: Optional[str] = None
   eligible:bool=False
