@@ -1,5 +1,5 @@
 pip>=24.0
-Python <3.13,>=3.8
+Python >=3.8
 setuptools
 git+https://github.com/openai/CLIP
 torch
