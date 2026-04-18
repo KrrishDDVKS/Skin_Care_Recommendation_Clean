@@ -1,5 +1,4 @@
 pip>=24.0
-Python ==3.10.4
 setuptools
 git+https://github.com/openai/CLIP
 torch
